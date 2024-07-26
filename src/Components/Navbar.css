@@ -1,0 +1,10 @@
+.text-logo {
+    font-size: 3rem;
+    background: -webkit-linear-gradient(90deg, #00DBDE 0%, #FC00FF 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.setting-btn:hover {
+    transform: rotate(-0.25turn);
+}
