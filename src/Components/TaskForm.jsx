@@ -8,10 +8,10 @@ import {
     Input,
     FormErrorMessage,
     Flex,
+    useToast,
 } from "@chakra-ui/react";
 import "./TaskForm.css";
 import { useTranslation } from "react-i18next";
-
 
 const TaskForm = ({ addTask, editTask, currentTask }) => {
     const { i18n, t } = useTranslation();
@@ -32,11 +32,27 @@ const TaskForm = ({ addTask, editTask, currentTask }) => {
         }
     }, [currentTask, reset]);
 
+    const toast = useToast();
+
     const onSubmit = (data) => {
         if (currentTask) {
             editTask(currentTask.id, data.title);
+            toast({
+                title: 'Update Successful',
+                description: 'Task has been updated successfully.',
+                status: 'success',
+                duration: 3000,
+                isClosable: true,
+            });
         } else {
             addTask(data.title);
+            toast({
+                title: 'Add Successful',
+                description: 'Task has been added successfully.',
+                status: 'success',
+                duration: 3000,
+                isClosable: true,
+            });
         }
         reset();
     };
@@ -48,7 +64,7 @@ const TaskForm = ({ addTask, editTask, currentTask }) => {
                     <FormLabel htmlFor="title"></FormLabel>
                     <Input
                         id="title"
-                        placeholder= {t("Enter your task")}
+                        placeholder={t("Enter your task")}
                         {...register("title", {
                             required: t("Please do not leave it blank!"),
                         })}
@@ -63,7 +79,6 @@ const TaskForm = ({ addTask, editTask, currentTask }) => {
                     type="submit"
                     className="mul-btn"
                 >
-                    
                     {currentTask ? t("Update") : t("Add New")}
                 </Button>
             </Flex>
